@@ -9,21 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cardmanagementsystem.config.Response;
-import com.cardmanagementsystem.model.Userdetalis;
-import com.cardmanagementsystem.service.UserService;
-
+import com.cardmanagementsystem.model.AddressDetails;
+import com.cardmanagementsystem.service.AddressService;
 @RestController
 @RequestMapping
-public class UserController {
-
+public class AddressController {
 	@Autowired
-	private UserService userService;
+	 private AddressService addressservice;
+	
+	@PostMapping("/address")
+	public Response saveAddress(@RequestBody @Valid AddressDetails address) {
 
-	@PostMapping("/user")
-	public Response saveUser(@RequestBody @Valid Userdetalis userdetails) {
-
-		return userService.createUser(userdetails);
+		return addressservice.saveAddress(address);
 
 	}
-	
+
 }

@@ -33,7 +33,7 @@ public class CardMangementExceptionHandler extends ResponseEntityExceptionHandle
                 .stream()
                 .map(err -> err.getField() + ":" + err.getDefaultMessage())
                 .collect(Collectors.toList());
-        Responses response=new Responses();
+        Response response=new Response();
         response.setErrors(errors);
         response.setStatusCode("1");
         response.setStatus(HttpStatus.BAD_REQUEST);
@@ -43,25 +43,25 @@ public class CardMangementExceptionHandler extends ResponseEntityExceptionHandle
         		response, new HttpHeaders(), response.getStatus());
     }
 
-//    @ExceptionHandler({ConstraintViolationException.class})
-//    public ResponseEntity<Object> handleConstraintViolation(
-//            ConstraintViolationException ex, ServletWebRequest request) {
-//
-//        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
-//        List<String> errors = constraintViolations
-//                .stream()
-//                .map(err -> err.getRootBeanClass().getName() + " " +
-//                        err.getPropertyPath() + ": " + err.getMessage())
-//                .collect(Collectors.toList());
-//Responses response=new Responses();
-//response.setErrors(errors);
-//response.setStatusCode("1");
-//response.setStatusDescription("error");
-//response.setStatus(HttpStatus.BAD_REQUEST);
-//
-//
-//return new ResponseEntity<>(
-//		response, new HttpHeaders(), response.getStatus());
-//        }
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException ex, ServletWebRequest request) {
+
+        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+        List<String> errors = constraintViolations
+                .stream()
+                .map(err -> err.getRootBeanClass().getName() + " " +
+                        err.getPropertyPath() + ": " + err.getMessage())
+                .collect(Collectors.toList());
+Response response=new Response();
+response.setErrors(errors);
+response.setStatusCode("1");
+response.setStatusDescription("error");
+response.setStatus(HttpStatus.BAD_REQUEST);
+
+
+return new ResponseEntity<>(
+		response, new HttpHeaders(), response.getStatus());
+        }
 
 }

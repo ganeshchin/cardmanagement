@@ -4,11 +4,19 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
+import com.cardmanagementsystem.model.AddressDetails;
 import com.cardmanagementsystem.model.Userdetalis;
 
-public class Responses {
+public class Response {
 	private HttpStatus status;
 	private String statusCode;
+
+	private String statusDescription;
+	private Userdetalis userdeatils;
+	private AddressDetails addressdetails;
+
+	private List<String> errors;
+
 	public HttpStatus getStatus() {
 		return status;
 	}
@@ -16,10 +24,6 @@ public class Responses {
 	public void setStatus(HttpStatus status) {
 		this.status = status;
 	}
-
-	private String statusDescription;
-	private Userdetalis userdeatils;
-	private List<String> errors;
 
 	public String getStatusCode() {
 		return statusCode;
@@ -53,4 +57,11 @@ public class Responses {
 		this.userdeatils = userdeatils;
 	}
 
+	public AddressDetails getAddressdetails() {
+		return addressdetails;
+	}
+
+	public void setAddressdetails(AddressDetails addressdetails) {
+		this.addressdetails = addressdetails;
+	}
 }

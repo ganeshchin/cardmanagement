@@ -9,56 +9,59 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cardmanagementsystem.config.Response;
 import com.cardmanagementsystem.model.AddressDetails;
-import com.cardmanagementsystem.model.Userdetalis;
 
 @Transactional
 @Repository
-public class UserDao {
+public class AddressDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Userdetalis saveUser(Userdetalis userdetails) {
+	public AddressDetails saveAddress(AddressDetails address) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Integer isSuccess = 0;
-
 		try {
 			tx = session.beginTransaction();
-			isSuccess = (Integer) session.save(userdetails);
-			tx.commit();
-			if (isSuccess >= 1) {
-				return userdetails;
-			} else {
-				return null;
-			}
+			session.saveOrUpdate(address);
+//			if (findAddressByUserId(address.getUserId())) {
+//				session.update(address);
+//			} else {
+//				isSuccess = (Integer) session.save(address);
+//			}
 
-		} catch (HibernateException e) {
+			tx.commit();
+////			if (isSuccess >= 1) {
+////				return address;
+////			} else {
+////				return null;
+//			}
+
+		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();
 			e.printStackTrace();
+			return null;
 		} finally {
 			session.close();
 		}
-		return null;
+		return address;
 
 	}
 
-	public Userdetalis findUserById(Integer userid) {
+	public Boolean findAddressByUserId(Integer userid) {
 		Session session = sessionFactory.openSession();
 
-		Userdetalis dbuser = null;
+		AddressDetails addressdetails = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
-
-			dbuser = (Userdetalis) session.get(Userdetalis.class, userid);
+			addressdetails = (AddressDetails) session.load(AddressDetails.class, userid);
 tx.commit();
-			if (dbuser != null) {
-				return dbuser;
+			if (addressdetails != null) {
+				return true;
 			} else {
-				return null;
+				return false;
 			}
 
 		} catch (HibernateException e) {
@@ -66,9 +69,9 @@ tx.commit();
 			e.printStackTrace();
 		}
 		finally {
-		session.close();
+			session.close();
 		}
-		return null;
-		
+		return false;
 	}
+
 }
