@@ -57,7 +57,7 @@ public class Userdetalis {
 //	}
 //
 //	@Enumerated(EnumType.STRING)
-	@Column(name = "kyc_status",columnDefinition = "VARCHAR(8) CHECK (kycStatus IN ('DONE', 'NOT_DONE'))")
+	@Column(name = "kyc_status",columnDefinition = "VARCHAR(8) CHECK (kyc_status IN ('DONE', 'NOT_DONE'))")
 	private String kycStatus;
 
 
