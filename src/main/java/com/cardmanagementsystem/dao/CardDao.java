@@ -1,13 +1,16 @@
 package com.cardmanagementsystem.dao;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.cardmanagementsystem.model.CardDetails;
 
 @Transactional
@@ -41,15 +44,15 @@ public class CardDao {
 	public CardDetails findCardById(Integer userid) {
 		Session session = sessionFactory.openSession();
 
-		CardDetails dbcard = null;
+		CardDetails dbCard = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
 
-			dbcard = (CardDetails) session.get(CardDetails.class, userid);
+			dbCard = (CardDetails) session.get(CardDetails.class, userid);
 			tx.commit();
-			if (dbcard != null) {
-				return dbcard;
+			if (dbCard != null) {
+				return dbCard;
 			} else {
 				return null;
 			}
@@ -71,8 +74,7 @@ public class CardDao {
 
 		try {
 			Transaction tx = session.beginTransaction();
-
-			allDbCardDetails = session.createCriteria(CardDetails.class).list();
+			 allDbCardDetails =  session.createCriteria(CardDetails.class).list();
 			tx.commit();
 			if (allDbCardDetails != null) {
 				return allDbCardDetails;
