@@ -2,7 +2,6 @@ package com.cardmanagementsystem.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -19,7 +18,7 @@ import com.cardmanagementsystem.model.UserDetails;
 public class UserService {
 
 	@Autowired
-	private UserDao userdao;
+	private UserDao userDao;
 	@Autowired
 	private AddressDao addressDao;
 
@@ -27,9 +26,6 @@ public class UserService {
 		Response response = new Response();
 		List<String> errors = new ArrayList<String>();
 		try {
-
-			Random random = new Random();
-			userDetails.setUserId(random.nextInt());
 			if (!userDetails.getKycStatus().equals("DONE") && !userDetails.getKycStatus().equals("NOT_DONE")) {
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
@@ -68,7 +64,7 @@ public class UserService {
 				return response;
 			}
 
-			userDetails = userdao.saveUser(userDetails);
+			userDetails = userDao.saveUser(userDetails);
 
 			if (!(userDetails == null)) {
 				response.setStatusCode("00");
@@ -94,17 +90,18 @@ public class UserService {
 		}
 	}
 
-	public Response getUserAndAddressDetailsById(int userid) {
+	public Response getUserAndAddressDetailsById(int userId) {
 		Response response = new Response();
 		UserDetails dbUserDetails = null;
 		AddressDetails dbAddressDetails = null;
-		dbUserDetails = userdao.findUserById(userid);
-		dbAddressDetails = addressDao.findAddressByUserId(userid);
+		dbUserDetails = userDao.findUserById(userId);
+		dbAddressDetails = addressDao.findAddressByUserId(userId);
 		List<String> errors = new ArrayList<String>();
+		
 		if (dbUserDetails != null && dbAddressDetails != null) {
 			response.setStatusCode("00");
 			response.setStatusDescription("success");
-			response.setAddressdetails(dbAddressDetails);
+			response.setAddressDetails(dbAddressDetails);
 			response.setUserDetails(dbUserDetails);
 			response.setStatus(HttpStatus.CREATED);
 			return response;
