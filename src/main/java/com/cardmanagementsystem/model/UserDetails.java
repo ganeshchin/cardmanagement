@@ -19,42 +19,36 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Table(name = "userdetails")
-public class UserDetalis {
+public class UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "userid")
 	private int userId;
+
 	@NotNull
 	@Length(min = 10, max = 10, message = " should be 10 digits ")
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNum;
+
 	@NotNull
-	@Length(min = 8, max = 15, message = " should be 10 15 " )
+	@Length(min = 8, max = 15, message = " should be 10 15 ")
 	@Column(name = "password", nullable = false)
 	private String password;
 
-//	public static enum Title {
-//		Mr, Mrs, Miss
-//	}
-
-//	@Enumerated(EnumType.STRING)
 	@Column(name = "title", columnDefinition = "VARCHAR(4) CHECK (title IN ('Mr', 'Mrs', 'Miss'))")
 	private String title;
+
 	@NotNull
 	@Length(min = 2, max = 100)
 	@Column(name = "name", nullable = false)
 	private String name;
+	
 	@NotNull
 	@Length(min = 10, max = 10)
 	@Column(name = "pan")
 	private String pan;
 
-//	public static enum KYCStatus {
-//		DONE, NOT_DONE
-//	}
-//
-//	@Enumerated(EnumType.STRING)
 	@Column(name = "kyc_status", columnDefinition = "VARCHAR(8) CHECK (kyc_status IN ('DONE', 'NOT_DONE'))")
 	private String kycStatus;
 

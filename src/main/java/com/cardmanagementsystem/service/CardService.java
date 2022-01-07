@@ -1,41 +1,36 @@
 package com.cardmanagementsystem.service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-
-//import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import com.cardmanagementsystem.config.Response;
 import com.cardmanagementsystem.dao.AddressDao;
 import com.cardmanagementsystem.dao.CardDao;
 import com.cardmanagementsystem.dao.UserDao;
 import com.cardmanagementsystem.model.AddressDetails;
 import com.cardmanagementsystem.model.CardDetails;
-import com.cardmanagementsystem.model.UserDetalis;
+import com.cardmanagementsystem.model.UserDetails;
 
 @Service
 public class CardService {
 	@Autowired
-	private CardDao carddao;
+	private CardDao cardDao;
 	@Autowired
-	private UserDao userdao;
+	private UserDao userDao;
 	@Autowired
-	private AddressDao addressdao;
+	private AddressDao addressDao;
 
 	List<String> errors = new ArrayList<String>();
 
 	public Response saveCard(CardDetails cardetails) {
 		Response response = new Response();
-		UserDetalis userdetails = null;
-		CardDetails dbcarddetails = null;
-		AddressDetails addressdetails = null;
-		String cardNumber = null;
-
+		UserDetails userDetails = null;
+		CardDetails dbcardDetails = null;
+		AddressDetails addressDetails = null;
+		
 		if (!cardetails.getCardType().equals("DEBIT") && !cardetails.getCardType().equals("CREDIT")) {
 			response.setStatusCode("01");
 			response.setStatusDescription("error");
@@ -59,45 +54,45 @@ public class CardService {
 			return response;
 		}
 		try {
-			userdetails = userdao.findUserById(cardetails.getUserId());
+			userDetails = userDao.findUserById(cardetails.getUserId());
 
-			if (userdetails == null) {
+			if (userDetails == null) {
 
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
-				response.setUserdeatils(null);
+				response.setUserDetails(null);
 				response.setStatus(HttpStatus.BAD_REQUEST);
 				errors.add("given userid is not available in userstable");
 				response.setErrors(errors);
 				return response;
 
 			} else {
-				addressdetails = addressdao.findAddressByUserId(cardetails.getUserId());
-				if (addressdetails == null) {
+				addressDetails = addressDao.findAddressByUserId(cardetails.getUserId());
+				if (addressDetails == null) {
 
 					response.setStatusCode("01");
 					response.setStatusDescription("error");
-					response.setUserdeatils(null);
+					response.setUserDetails(null);
 					response.setStatus(HttpStatus.BAD_REQUEST);
 					errors.add("given userid is not available in addresstable");
 					response.setErrors(errors);
 					return response;
 
 				}
-				dbcarddetails = carddao.saveCard(cardetails);
+				dbcardDetails = cardDao.saveCard(cardetails);
 
-				if (dbcarddetails != null) {
+				if (dbcardDetails != null) {
 					response.setStatusCode("00");
 					response.setStatusDescription("success");
-					response.setUserdeatils(userdetails);
+					response.setUserDetails(userDetails);
 					response.setStatus(HttpStatus.CREATED);
-					response.setCardDetails(dbcarddetails);
+					response.setCardDetails(dbcardDetails);
 					return response;
 
 				} else {
 					response.setStatusCode("01");
 					response.setStatusDescription("error");
-					response.setUserdeatils(null);
+					response.setUserDetails(null);
 					response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 					errors.add("data not inserted due to internal error");
 					response.setErrors(errors);
@@ -109,7 +104,7 @@ public class CardService {
 		} catch (Exception e) {
 			response.setStatusCode("01");
 			response.setStatusDescription("error");
-			response.setUserdeatils(null);
+			response.setUserDetails(null);
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 			errors.add("internal server error");
 			response.setErrors(errors);
@@ -122,7 +117,7 @@ public class CardService {
 
 		CardDetails dbCardDetails = null;
 		Response response = new Response();
-		dbCardDetails = carddao.findCardById(id);
+		dbCardDetails = cardDao.findCardById(id);
 		if (dbCardDetails == null) {
 
 			response.setStatusCode("01");
@@ -151,7 +146,7 @@ public class CardService {
 		List<CardDetails> allDbCardDetails;
 		List<CardDetails> newDbCardDetails=new ArrayList<CardDetails>();
 
-		allDbCardDetails = carddao.getAllCards();
+		allDbCardDetails = cardDao.getAllCards();
 		System.out.println("emyna print chei"+allDbCardDetails);
 		if (allDbCardDetails == null || allDbCardDetails.isEmpty()) {
 

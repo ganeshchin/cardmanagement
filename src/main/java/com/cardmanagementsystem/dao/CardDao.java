@@ -44,15 +44,15 @@ public class CardDao {
 	public CardDetails findCardById(Integer userid) {
 		Session session = sessionFactory.openSession();
 
-		CardDetails dbcard = null;
+		CardDetails dbCard = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
 
-			dbcard = (CardDetails) session.get(CardDetails.class, userid);
+			dbCard = (CardDetails) session.get(CardDetails.class, userid);
 			tx.commit();
-			if (dbcard != null) {
-				return dbcard;
+			if (dbCard != null) {
+				return dbCard;
 			} else {
 				return null;
 			}
@@ -74,8 +74,6 @@ public class CardDao {
 
 		try {
 			Transaction tx = session.beginTransaction();
-			
-
 			 allDbCardDetails =  session.createCriteria(CardDetails.class).list();
 			tx.commit();
 			if (allDbCardDetails != null) {

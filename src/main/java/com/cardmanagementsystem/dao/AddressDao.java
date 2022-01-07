@@ -20,7 +20,6 @@ public class AddressDao {
 	public AddressDetails saveAddress(AddressDetails address) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-//		Integer isSuccess = 0;
 		try {
 			tx = session.beginTransaction();
 			session.saveOrUpdate(address);
