@@ -43,7 +43,7 @@ public class AddressService {
 				response.setStatusDescription("success");
 				response.setUserDetails(userDetails);
 				response.setStatus(HttpStatus.CREATED);
-				response.setAddressdetails(dbAddressDetails);
+				response.setAddressDetails(dbAddressDetails);
 				return response;
 
 			} else {
