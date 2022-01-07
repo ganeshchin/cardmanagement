@@ -25,11 +25,12 @@ public class UserController {
 		return userService.createUser(userDetails);
 
 	}
-
 	@GetMapping("/api/userdetails/{id}")
 	public Response getUserAndAddressDetailsById(@PathVariable int id) {
 		return userService.getUserAndAddressDetailsById(id);
-
+		
 	}
-
+	
+	
+	
 }
