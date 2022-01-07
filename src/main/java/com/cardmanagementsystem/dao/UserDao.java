@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 
 @Transactional
 @Repository
@@ -15,7 +15,7 @@ public class UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Userdetalis saveUser(Userdetalis userdetails) {
+	public UserDetalis saveUser(UserDetalis userdetails) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Integer isSuccess = 0;
@@ -41,15 +41,15 @@ public class UserDao {
 
 	}
 
-	public Userdetalis findUserById(Integer userid) {
+	public UserDetalis findUserById(Integer userId) {
 		Session session = sessionFactory.openSession();
 
-		Userdetalis dbuser = null;
+		UserDetalis dbuser = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
 
-			dbuser = (Userdetalis) session.get(Userdetalis.class, userid);
+			dbuser = (UserDetalis) session.get(UserDetalis.class, userId);
 			tx.commit();
 			if (dbuser != null) {
 				return dbuser;
@@ -67,15 +67,15 @@ public class UserDao {
 
 	}
 
-	public Userdetalis findUserByIdForAddressDetails(int id) {
+	public UserDetalis findUserByIdForAddressDetails(int id) {
 		Session session = sessionFactory.openSession();
 
-		Userdetalis dbuser = null;
+		UserDetalis dbuser = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
 
-			dbuser = (Userdetalis) session.get(Userdetalis.class, id);
+			dbuser = (UserDetalis) session.get(UserDetalis.class, id);
 			tx.commit();
 			if (dbuser != null) {
 				return dbuser;

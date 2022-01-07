@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Table(name = "userdetails")
-public class Userdetalis {
+public class UserDetalis {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -19,13 +19,13 @@ public class CardDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public CardDetails saveCard(CardDetails carddetails) {
+	public CardDetails saveCard(CardDetails cardDetails) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 
 		try {
 			tx = session.beginTransaction();
-			session.saveOrUpdate(carddetails);
+			session.saveOrUpdate(cardDetails);
 
 			tx.commit();
 
@@ -37,7 +37,7 @@ public class CardDao {
 		} finally {
 			session.close();
 		}
-		return carddetails;
+		return cardDetails;
 
 	}
 

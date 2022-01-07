@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cardmanagementsystem.config.Response;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 import com.cardmanagementsystem.service.UserService;
 
 @RestController
@@ -22,9 +22,9 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/user")
-	public Response saveUser(@RequestBody @Valid Userdetalis userdetails) {
+	public Response saveUser(@RequestBody @Valid UserDetalis userDetails) {
 
-		return userService.createUser(userdetails);
+		return userService.createUser(userDetails);
 
 	}
 	@GetMapping("/api/userdetails/{id}")

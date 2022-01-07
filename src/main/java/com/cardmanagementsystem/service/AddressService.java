@@ -11,23 +11,23 @@ import com.cardmanagementsystem.config.Response;
 import com.cardmanagementsystem.dao.AddressDao;
 import com.cardmanagementsystem.dao.UserDao;
 import com.cardmanagementsystem.model.AddressDetails;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 
 @Service
 public class AddressService {
 	@Autowired
-	private AddressDao addressdao;
+	private AddressDao addressDao;
 	@Autowired
-	private UserDao userdao;
+	private UserDao userDao;
 	List<String> errors = new ArrayList<String>();
 
 	public Response saveAddress(AddressDetails address) {
 		Response response = new Response();
-		AddressDetails dbaddressdetails = null;
-		Userdetalis userdetails = null;
+		AddressDetails dbAddressDetails = null;
+		UserDetalis userDetails = null;
 		try {
-			userdetails = userdao.findUserById(address.getUserId());
-			if (userdetails == null) {
+			userDetails = userDao.findUserById(address.getUserId());
+			if (userDetails == null) {
 
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
@@ -38,14 +38,14 @@ public class AddressService {
 				return response;
 
 			}
-			dbaddressdetails = addressdao.saveAddress(address);
+			dbAddressDetails = addressDao.saveAddress(address);
 
-			if (!(dbaddressdetails == null)) {
+			if (!(dbAddressDetails == null)) {
 				response.setStatusCode("00");
 				response.setStatusDescription("success");
-				response.setUserdeatils(userdetails);
+				response.setUserdeatils(userDetails);
 				response.setStatus(HttpStatus.CREATED);
-				response.setAddressdetails(dbaddressdetails);
+				response.setAddressdetails(dbAddressDetails);
 				return response;
 
 			} else {

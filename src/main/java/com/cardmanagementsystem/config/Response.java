@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 
 import com.cardmanagementsystem.model.AddressDetails;
 import com.cardmanagementsystem.model.CardDetails;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 
 public class Response {
 	private HttpStatus status;
 	private String statusCode;
 	private String statusDescription;
-	private Userdetalis userdeatils;
+	private UserDetalis userdeatils;
 	private AddressDetails addressdetails;
 	private CardDetails cardDetails;
 	private List<CardDetails> allCardDetails;
@@ -66,11 +66,11 @@ public class Response {
 		this.statusDescription = statusDescription;
 	}
 
-	public Userdetalis getUserdeatils() {
+	public UserDetalis getUserdeatils() {
 		return userdeatils;
 	}
 
-	public void setUserdeatils(Userdetalis userdeatils) {
+	public void setUserdeatils(UserDetalis userdeatils) {
 		this.userdeatils = userdeatils;
 	}
 

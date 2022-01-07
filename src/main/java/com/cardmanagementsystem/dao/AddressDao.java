@@ -39,17 +39,17 @@ public class AddressDao {
 
 	}
 
-	public AddressDetails findAddressByUserId(Integer userid) {
+	public AddressDetails findAddressByUserId(Integer userId) {
 		Session session = sessionFactory.openSession();
 
-		AddressDetails addressdetails = null;
+		AddressDetails addressDetails = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
-			addressdetails = (AddressDetails) session.get(AddressDetails.class, userid);
+			addressDetails = (AddressDetails) session.get(AddressDetails.class, userId);
 			tx.commit();
-			if (addressdetails != null) {
-				return addressdetails;
+			if (addressDetails != null) {
+				return addressDetails;
 			} else {
 				return null;
 			}

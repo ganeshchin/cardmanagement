@@ -15,12 +15,12 @@ import com.cardmanagementsystem.service.AddressService;
 @RequestMapping
 public class AddressController {
 	@Autowired
-	 private AddressService addressservice;
+	 private AddressService addressService;
 	
 	@PostMapping("/address")
 	public Response saveAddress(@RequestBody @Valid AddressDetails address) {
 
-		return addressservice.saveAddress(address);
+		return addressService.saveAddress(address);
 
 	}
 

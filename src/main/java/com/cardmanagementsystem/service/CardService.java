@@ -16,7 +16,7 @@ import com.cardmanagementsystem.dao.CardDao;
 import com.cardmanagementsystem.dao.UserDao;
 import com.cardmanagementsystem.model.AddressDetails;
 import com.cardmanagementsystem.model.CardDetails;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 
 @Service
 public class CardService {
@@ -31,7 +31,7 @@ public class CardService {
 
 	public Response saveCard(CardDetails cardetails) {
 		Response response = new Response();
-		Userdetalis userdetails = null;
+		UserDetalis userdetails = null;
 		CardDetails dbcarddetails = null;
 		AddressDetails addressdetails = null;
 		String cardNumber = null;

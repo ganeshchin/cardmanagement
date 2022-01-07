@@ -15,7 +15,7 @@ import com.cardmanagementsystem.config.Response;
 import com.cardmanagementsystem.dao.AddressDao;
 import com.cardmanagementsystem.dao.UserDao;
 import com.cardmanagementsystem.model.AddressDetails;
-import com.cardmanagementsystem.model.Userdetalis;
+import com.cardmanagementsystem.model.UserDetalis;
 
 @Service
 
@@ -112,14 +112,14 @@ public class UserService {
 //		}
 //	}
 
-	public Response createUser(Userdetalis userdetails) {
+	public Response createUser(UserDetalis userDetails) {
 		Response response = new Response();
 		List<String> errors = new ArrayList<String>();
 		try {
 
 			Random random = new Random();
-			userdetails.setUserId(random.nextInt());
-			if (!userdetails.getKycStatus().equals("DONE") && !userdetails.getKycStatus().equals("NOT_DONE")) {
+			userDetails.setUserId(random.nextInt());
+			if (!userDetails.getKycStatus().equals("DONE") && !userDetails.getKycStatus().equals("NOT_DONE")) {
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
 				response.setUserdeatils(null);
@@ -129,7 +129,7 @@ public class UserService {
 				return response;
 			}
 
-			String pan = userdetails.getPan();
+			String pan = userDetails.getPan();
 			String regex = "[A-Z]{5}[0-9]{4}[A-Z]{1}";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(pan);
@@ -143,9 +143,9 @@ public class UserService {
 				return response;
 			}
 
-			String pwd = userdetails.getPassword();
-			userdetails.setPassword(Base64.encodeBase64(pwd.getBytes()).toString());
-			if (!userdetails.getTitle().equals("Mr") && !userdetails.getTitle().equals("Mrs") && !userdetails.getTitle().equals("Miss")) {
+			String pwd = userDetails.getPassword();
+			userDetails.setPassword(Base64.encodeBase64(pwd.getBytes()).toString());
+			if (!userDetails.getTitle().equals("Mr") && !userDetails.getTitle().equals("Mrs") && !userDetails.getTitle().equals("Miss")) {
 				
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
@@ -156,12 +156,12 @@ public class UserService {
 				return response;
 			}
 
-			userdetails = userdao.saveUser(userdetails);
+			userDetails = userdao.saveUser(userDetails);
 
-			if (!(userdetails == null)) {
+			if (!(userDetails == null)) {
 				response.setStatusCode("00");
 				response.setStatusDescription("success");
-				response.setUserdeatils(userdetails);
+				response.setUserdeatils(userDetails);
 				response.setStatus(HttpStatus.CREATED);
 				return response;
 
@@ -182,12 +182,12 @@ public class UserService {
 		}
 	}
 
-	public Response getUserAndAddressDetailsById(int userid) {
+	public Response getUserAndAddressDetailsById(int userId) {
 		Response response=new Response();
-		Userdetalis dbUserDetails=null;
+		UserDetalis dbUserDetails=null;
 		AddressDetails dbAddressDetails=null;
-		dbUserDetails=userdao.findUserById(userid);
-		dbAddressDetails=addressDao.findAddressByUserId(userid);
+		dbUserDetails=userdao.findUserById(userId);
+		dbAddressDetails=addressDao.findAddressByUserId(userId);
 		List<String> errors=new ArrayList<String>();
 		if (dbUserDetails != null && dbAddressDetails!=null) {
 			response.setStatusCode("00");
