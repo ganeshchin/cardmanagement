@@ -1,5 +1,7 @@
 package com.cardmanagementsystem.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
@@ -9,21 +11,21 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cardmanagementsystem.model.AddressDetails;
+import com.cardmanagementsystem.model.CardDetails;
 
 @Transactional
 @Repository
-public class AddressDao {
+public class CardDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public AddressDetails saveAddress(AddressDetails address) {
+	public CardDetails saveCard(CardDetails carddetails) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-//		Integer isSuccess = 0;
+
 		try {
 			tx = session.beginTransaction();
-			session.saveOrUpdate(address);
+			session.saveOrUpdate(carddetails);
 
 			tx.commit();
 
@@ -35,21 +37,22 @@ public class AddressDao {
 		} finally {
 			session.close();
 		}
-		return address;
+		return carddetails;
 
 	}
 
-	public AddressDetails findAddressByUserId(Integer userid) {
+	public CardDetails findCardById(Integer userid) {
 		Session session = sessionFactory.openSession();
 
-		AddressDetails addressdetails = null;
+		CardDetails dbcard = null;
 
 		try {
 			Transaction tx = session.beginTransaction();
-			addressdetails = (AddressDetails) session.get(AddressDetails.class, userid);
+
+			dbcard = (CardDetails) session.get(CardDetails.class, userid);
 			tx.commit();
-			if (addressdetails != null) {
-				return addressdetails;
+			if (dbcard != null) {
+				return dbcard;
 			} else {
 				return null;
 			}
@@ -61,6 +64,33 @@ public class AddressDao {
 			session.close();
 		}
 		return null;
+
 	}
 
+	public List<CardDetails> getAllCards() {
+		Session session = sessionFactory.openSession();
+
+		List<CardDetails> allDbCardDetails = null;
+
+		try {
+			Transaction tx = session.beginTransaction();
+			
+
+			 allDbCardDetails =  session.createCriteria(CardDetails.class).list();
+			tx.commit();
+			if (allDbCardDetails != null) {
+				return allDbCardDetails;
+			} else {
+				return null;
+			}
+
+		} catch (HibernateException e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return allDbCardDetails;
+	}
 }

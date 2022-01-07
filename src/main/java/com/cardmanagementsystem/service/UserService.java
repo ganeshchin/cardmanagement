@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.cardmanagementsystem.config.Response;
+import com.cardmanagementsystem.dao.AddressDao;
 import com.cardmanagementsystem.dao.UserDao;
+import com.cardmanagementsystem.model.AddressDetails;
 import com.cardmanagementsystem.model.Userdetalis;
 
 @Service
@@ -21,6 +23,8 @@ public class UserService {
 
 	@Autowired
 	private UserDao userdao;
+	@Autowired
+	private AddressDao addressDao;
 
 //	public Response saveUser(User user) {
 //		Response response = new Response();
@@ -176,6 +180,43 @@ public class UserService {
 			return response;
 
 		}
+	}
+
+	public Response getUserAndAddressDetailsById(int userid) {
+		Response response=new Response();
+		Userdetalis dbUserDetails=null;
+		AddressDetails dbAddressDetails=null;
+		dbUserDetails=userdao.findUserById(userid);
+		dbAddressDetails=addressDao.findAddressByUserId(userid);
+		List<String> errors=new ArrayList<String>();
+		if (dbUserDetails != null && dbAddressDetails!=null) {
+			response.setStatusCode("00");
+			response.setStatusDescription("success");
+			response.setAddressdetails(dbAddressDetails);
+			response.setUserdeatils(dbUserDetails);
+			response.setStatus(HttpStatus.CREATED);
+			return response;
+
+		} else {
+			response.setStatusCode("01");
+			response.setStatusDescription("error");
+			response.setUserdeatils(dbUserDetails);
+			response.setStatus(HttpStatus.NOT_FOUND);
+			if(dbUserDetails==null) {
+				errors.add("user data not found in usertable");
+				response.setUserdeatils(dbUserDetails);
+			}
+			else {
+				errors.add("user data not found in address table");
+				
+			}
+			
+			response.setErrors(errors);
+			return response;
+
+		}
+		
+		
 	}
 
 }

@@ -2,8 +2,6 @@ package com.cardmanagementsystem.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,15 +22,15 @@ import lombok.NoArgsConstructor;
 public class Userdetalis {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "userid")
 	private int userId;
 	@NotNull
-    @Length(min = 10,max=10, message = " should be 10 digits ")
+	@Length(min = 10, max = 10, message = " should be 10 digits ")
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNum;
 	@NotNull
-    @Length(min = 8,max=15)
+	@Length(min = 8, max = 15, message = " should be 10 15 " )
 	@Column(name = "password", nullable = false)
 	private String password;
 
@@ -41,14 +39,14 @@ public class Userdetalis {
 //	}
 
 //	@Enumerated(EnumType.STRING)
-	@Column(name = "title",columnDefinition = "VARCHAR(4) CHECK (title IN ('Mr', 'Mrs', 'Miss'))")
+	@Column(name = "title", columnDefinition = "VARCHAR(4) CHECK (title IN ('Mr', 'Mrs', 'Miss'))")
 	private String title;
 	@NotNull
-    @Length(min = 2,max=100)
+	@Length(min = 2, max = 100)
 	@Column(name = "name", nullable = false)
 	private String name;
 	@NotNull
-    @Length(min = 10,max=10)
+	@Length(min = 10, max = 10)
 	@Column(name = "pan")
 	private String pan;
 
@@ -57,8 +55,7 @@ public class Userdetalis {
 //	}
 //
 //	@Enumerated(EnumType.STRING)
-	@Column(name = "kyc_status",columnDefinition = "VARCHAR(8) CHECK (kycStatus IN ('DONE', 'NOT_DONE'))")
+	@Column(name = "kyc_status", columnDefinition = "VARCHAR(8) CHECK (kyc_status IN ('DONE', 'NOT_DONE'))")
 	private String kycStatus;
-
 
 }

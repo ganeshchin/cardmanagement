@@ -1,11 +1,8 @@
 package com.cardmanagementsystem;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-
-import com.cardmanagementsystem.config.DBConfiguration;
 
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
 public class CardmanagementsystemApplication {

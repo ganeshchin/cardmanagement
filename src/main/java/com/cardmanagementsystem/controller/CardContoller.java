@@ -11,28 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cardmanagementsystem.config.Response;
-import com.cardmanagementsystem.model.Userdetalis;
-import com.cardmanagementsystem.service.UserService;
+import com.cardmanagementsystem.model.CardDetails;
+import com.cardmanagementsystem.service.CardService;
 
 @RestController
 @RequestMapping
-public class UserController {
-
+public class CardContoller {
 	@Autowired
-	private UserService userService;
+	private CardService cardService;
 
-	@PostMapping("/user")
-	public Response saveUser(@RequestBody @Valid Userdetalis userdetails) {
+	@PostMapping("/card")
+	public Response saveCard(@RequestBody @Valid CardDetails cardDetails) {
 
-		return userService.createUser(userdetails);
+		return cardService.saveCard(cardDetails);
 
 	}
-	@GetMapping("/api/userdetails/{id}")
-	public Response getUserAndAddressDetailsById(@PathVariable int id) {
-		return userService.getUserAndAddressDetailsById(id);
-		
+
+	@GetMapping("/api/carddetails/{id}")
+	public Response getCard(@PathVariable int id) {
+		return cardService.getCardById(id);
+
 	}
-	
-	
-	
+	@GetMapping("/api/getallcards")
+	public Response getAll() {
+		return cardService.getAllCardDetails();
+		 
+	}
 }

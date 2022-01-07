@@ -2,8 +2,6 @@ package com.cardmanagementsystem.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -20,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class AddressDetails {
 
 	@Id
-	@Column(name = "userid")
+	@Column(name = "userid", nullable = false)
 	private Integer userId;
-	@Column(name = "line1")
+	@Column(name = "line1", nullable = false)
 	@NotNull
 	@Length(min = 1, max = 30)
 	private String line1;
@@ -35,20 +33,20 @@ public class AddressDetails {
 	@Length(min = 0, max = 30)
 	private String line3;
 
-	@Column(name = "pin")
+	@Column(name = "pin", nullable = false)
 	@NotNull
-	@Length(min = 3, max = 30)
+	@Length(min = 3, max = 10)
 	private String pin;
-	@Column(name = "city")
+	@Column(name = "city", nullable = false)
 	@NotNull
 	@Length(min = 1, max = 30)
 	private String city;
-	@Column(name = "state")
+	@Column(name = "state", nullable = false)
 	@NotNull
 	@Length(min = 1, max = 30)
 	private String state;
-	
-	@Column(name = "country")
+
+	@Column(name = "country", nullable = false)
 	@NotNull
 	@Length(min = 1, max = 30)
 	private String country;

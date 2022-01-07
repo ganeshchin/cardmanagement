@@ -5,17 +5,34 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 
 import com.cardmanagementsystem.model.AddressDetails;
+import com.cardmanagementsystem.model.CardDetails;
 import com.cardmanagementsystem.model.Userdetalis;
 
 public class Response {
 	private HttpStatus status;
 	private String statusCode;
-
 	private String statusDescription;
 	private Userdetalis userdeatils;
 	private AddressDetails addressdetails;
-
+	private CardDetails cardDetails;
+	private List<CardDetails> allCardDetails;
 	private List<String> errors;
+
+	public List<CardDetails> getAllCardDetails() {
+		return allCardDetails;
+	}
+
+	public void setAllCardDetails(List<CardDetails> allCardDetails) {
+		this.allCardDetails = allCardDetails;
+	}
+
+	public CardDetails getCardDetails() {
+		return cardDetails;
+	}
+
+	public void setCardDetails(CardDetails cardDetails) {
+		this.cardDetails = cardDetails;
+	}
 
 	public HttpStatus getStatus() {
 		return status;
