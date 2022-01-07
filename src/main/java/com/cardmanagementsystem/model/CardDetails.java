@@ -1,25 +1,17 @@
 package com.cardmanagementsystem.model;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,9 +32,8 @@ public class CardDetails {
 	private String cardNumber;
 
 	@Column(name = "dailyLimt", nullable = false)
-////@Length(min = 0, max = 100)
-////	@Range(min=0, max=200)
-	@Min(2)  @Max(200)
+	@Min(2)
+	@Max(200)
 	private Integer dailyLimit;
 
 	@Length(min = 5, max = 6)
@@ -58,6 +49,6 @@ public class CardDetails {
 	@Future
 	@JsonFormat(pattern = "MMyyyy")
 	@DateTimeFormat(pattern = "MMyyyy")
-	private Date expirydate;
+	private Date expiryDate;
 
 }

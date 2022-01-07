@@ -1,14 +1,12 @@
 package com.cardmanagementsystem.dao;
 
 import javax.transaction.Transactional;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.cardmanagementsystem.model.AddressDetails;
 
 @Transactional

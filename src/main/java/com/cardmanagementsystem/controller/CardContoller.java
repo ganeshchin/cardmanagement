@@ -32,9 +32,10 @@ public class CardContoller {
 		return cardService.getCardById(id);
 
 	}
+
 	@GetMapping("/api/getallcards")
 	public Response getAll() {
 		return cardService.getAllCardDetails();
-		 
+
 	}
 }

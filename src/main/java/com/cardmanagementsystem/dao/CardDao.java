@@ -1,16 +1,13 @@
 package com.cardmanagementsystem.dao;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.cardmanagementsystem.model.CardDetails;
 
 @Transactional
@@ -19,13 +16,13 @@ public class CardDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public CardDetails saveCard(CardDetails carddetails) {
+	public CardDetails saveCard(CardDetails cardDetails) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 
 		try {
 			tx = session.beginTransaction();
-			session.saveOrUpdate(carddetails);
+			session.saveOrUpdate(cardDetails);
 
 			tx.commit();
 
@@ -37,7 +34,7 @@ public class CardDao {
 		} finally {
 			session.close();
 		}
-		return carddetails;
+		return cardDetails;
 
 	}
 
@@ -74,9 +71,8 @@ public class CardDao {
 
 		try {
 			Transaction tx = session.beginTransaction();
-			
 
-			 allDbCardDetails =  session.createCriteria(CardDetails.class).list();
+			allDbCardDetails = session.createCriteria(CardDetails.class).list();
 			tx.commit();
 			if (allDbCardDetails != null) {
 				return allDbCardDetails;
