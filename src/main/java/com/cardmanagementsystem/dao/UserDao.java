@@ -15,17 +15,17 @@ public class UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public UserDetails saveUser(UserDetails userDetails) {
+	public UserDetails saveUser(UserDetails userdetails) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Integer isSuccess = 0;
 
 		try {
 			tx = session.beginTransaction();
-			isSuccess = (Integer) session.save(userDetails);
+			isSuccess = (Integer) session.save(userdetails);
 			tx.commit();
 			if (isSuccess >= 1) {
-				return userDetails;
+				return userdetails;
 			} else {
 				return null;
 			}
@@ -41,7 +41,7 @@ public class UserDao {
 
 	}
 
-	public UserDetails findUserById(Integer userid) {
+	public UserDetails findUserById(Integer userId) {
 		Session session = sessionFactory.openSession();
 
 		UserDetails dbuser = null;
@@ -49,7 +49,7 @@ public class UserDao {
 		try {
 			Transaction tx = session.beginTransaction();
 
-			dbuser = (UserDetails) session.get(UserDetails.class, userid);
+			dbuser = (UserDetails) session.get(UserDetails.class, userId);
 			tx.commit();
 			if (dbuser != null) {
 				return dbuser;
