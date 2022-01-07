@@ -27,7 +27,7 @@ public class AddressDetails {
 	@Column(name = "line2")
 	@Length(min = 0, max = 30)
 	private String line2;
-	
+
 	@Column(name = "line3")
 	@Length(min = 0, max = 30)
 	private String line3;
