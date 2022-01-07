@@ -27,11 +27,10 @@ public class CardService {
 
 	public Response saveCard(CardDetails cardetails) {
 		Response response = new Response();
-		UserDetails userdetails = null;
-		CardDetails dbcarddetails = null;
-		AddressDetails addressdetails = null;
-		String cardNumber = null;
-
+		UserDetails userDetails = null;
+		CardDetails dbcardDetails = null;
+		AddressDetails addressDetails = null;
+		
 		if (!cardetails.getCardType().equals("DEBIT") && !cardetails.getCardType().equals("CREDIT")) {
 			response.setStatusCode("01");
 			response.setStatusDescription("error");
@@ -42,6 +41,7 @@ public class CardService {
 			return response;
 		}
 
+		
 		cardetails.setCardNumber(encoder(cardetails.getCardNumber()));
 		if (!cardetails.getCardStatus().equals("ACTIVE") && !cardetails.getCardStatus().equals("INACTIVE")) {
 
@@ -54,9 +54,9 @@ public class CardService {
 			return response;
 		}
 		try {
-			userdetails = userDao.findUserById(cardetails.getUserId());
+			userDetails = userDao.findUserById(cardetails.getUserId());
 
-			if (userdetails == null) {
+			if (userDetails == null) {
 
 				response.setStatusCode("01");
 				response.setStatusDescription("error");
@@ -67,8 +67,8 @@ public class CardService {
 				return response;
 
 			} else {
-				addressdetails = addressDao.findAddressByUserId(cardetails.getUserId());
-				if (addressdetails == null) {
+				addressDetails = addressDao.findAddressByUserId(cardetails.getUserId());
+				if (addressDetails == null) {
 
 					response.setStatusCode("01");
 					response.setStatusDescription("error");
@@ -79,14 +79,14 @@ public class CardService {
 					return response;
 
 				}
-				dbcarddetails = cardDao.saveCard(cardetails);
+				dbcardDetails = cardDao.saveCard(cardetails);
 
-				if (dbcarddetails != null) {
+				if (dbcardDetails != null) {
 					response.setStatusCode("00");
 					response.setStatusDescription("success");
-					response.setUserDetails(userdetails);
+					response.setUserDetails(userDetails);
 					response.setStatus(HttpStatus.CREATED);
-					response.setCardDetails(dbcarddetails);
+					response.setCardDetails(dbcardDetails);
 					return response;
 
 				} else {
@@ -139,15 +139,18 @@ public class CardService {
 		return response;
 	}
 
+	
+
 	public Response getAllCardDetails() {
 		Response response = new Response();
 		List<CardDetails> allDbCardDetails;
-		List<CardDetails> newDbCardDetails = new ArrayList<CardDetails>();
+		List<CardDetails> newDbCardDetails=new ArrayList<CardDetails>();
 
 		allDbCardDetails = cardDao.getAllCards();
-		System.out.println("emyna print chei" + allDbCardDetails);
+		System.out.println("emyna print chei"+allDbCardDetails);
 		if (allDbCardDetails == null || allDbCardDetails.isEmpty()) {
 
+			
 			response.setStatusCode("01");
 			response.setStatusDescription("error");
 			response.setCardDetails(null);
@@ -155,7 +158,8 @@ public class CardService {
 			errors.add("given userid is not available in cardtable");
 			response.setErrors(errors);
 			return response;
-		} else {
+		}
+		else {
 			for (CardDetails cardDetails : allDbCardDetails) {
 				cardDetails.setCardNumber(maskCardNumber(decoder(cardDetails.getCardNumber())));
 				newDbCardDetails.add(cardDetails);
@@ -167,6 +171,7 @@ public class CardService {
 			response.setStatus(HttpStatus.FOUND);
 			return response;
 		}
+
 
 	}
 
