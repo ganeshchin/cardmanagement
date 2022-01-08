@@ -1,55 +1,55 @@
 package com.cardmanagementsystem.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class AddressDetails {
-
+@AllArgsConstructor
+@Table(name = "carddetails")
+public class CardDetails {
 	@Id
 	@Column(name = "userid", nullable = false)
-	private Integer userId;
-	
-	@Column(name = "line1", nullable = false)
-	@NotNull
-	@Length(min = 1, max = 30)
-	private String line1;
-	
-	@Column(name = "line2")
-	@Length(min = 0, max = 30)
-	private String line2;
+	private int userId;
 
-	@Column(name = "line3")
-	@Length(min = 0, max = 30)
-	private String line3;
+	@NotNull
+	@Length(min = 5, max = 20)
+	@Column(name = "card_number", nullable = false)
+	private String cardNumber;
 
-	@Column(name = "pin", nullable = false)
-	@NotNull
-	@Length(min = 3, max = 10)
-	private String pin;
-	
-	@Column(name = "city", nullable = false)
-	@NotNull
-	@Length(min = 1, max = 30)
-	private String city;
-	
-	@Column(name = "state", nullable = false)
-	@NotNull
-	@Length(min = 1, max = 30)
-	private String state;
+	@Column(name = "dailyLimt", nullable = false)
 
-	@Column(name = "country", nullable = false)
+	@Min(2)  @Max(200)
+	private Integer dailyLimit;
+
+	@Length(min = 5, max = 6)
+	@Column(name = "card_type", columnDefinition = "VARCHAR(5) CHECK (card_type IN ('DEBIT', 'CREDIT'))")
+	private String cardType;
+
+	@Column(name = "card_status", columnDefinition = "VARCHAR(8) CHECK (card_status IN ('ACTIVE', 'INACTIVE'))")
+	@Length(min = 6, max = 8)
+	private String cardStatus;
+
+	@Column(name = "expirydate")
 	@NotNull
-	@Length(min = 1, max = 30)
-	private String country;
+	@Future
+	@JsonFormat(pattern = "MMyyyy")
+	@DateTimeFormat(pattern = "MMyyyy")
+	private Date expiryDate;
 
 }
